@@ -1,28 +1,18 @@
 # rest-api
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.3.0.
+This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.3.0 and modified to provide only the backend part and some features, like stateless authentication strategies using Basic Auth and Bearer Tokens.
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 - [Git](https://git-scm.com/)
 - [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
 - [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
 - [MongoDB](https://www.mongodb.org/) - Keep a running daemon with `mongod`
 
-### Developing
+## Usage
 
-1. Run `npm install` to install server dependencies.
+1. Run `git clone htps://github.com/diegohaz/rest-api && cd rest-api && npm install` and wait for npm to install dependencies.
 
-3. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
+2. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
 
-4. Run `grunt serve` to start the development server. It should automatically open the client in your browser when ready.
-
-## Build & development
-
-Run `grunt build` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `npm test` will run the unit tests with karma.
+3. Run `grunt` to execute tests and build the project.
