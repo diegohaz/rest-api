@@ -4,8 +4,10 @@ import bcrypt from 'bcrypt';
 import randtoken from 'rand-token';
 import mongoose from 'mongoose';
 import {Schema} from 'mongoose';
+import Session from '../session/session.model';
 
 var compare = require('bluebird').promisify(bcrypt.compare);
+var roles = ['user', 'admin'];
 
 var UserSchema = new Schema({
   email: {
@@ -24,6 +26,11 @@ var UserSchema = new Schema({
   name: {
     type: String,
     trim: true
+  },
+  role: {
+    type: String,
+    enum: roles,
+    default: 'user'
   }
 });
 
@@ -54,12 +61,22 @@ UserSchema.pre('save', function(next) {
 });
 
 /**
+ * Post-remove hook
+ */
+UserSchema.post('remove', function(user) {
+  Session.find({user: user}).exec().map(session => {
+    session.remove();
+  });
+});
+
+/**
  * View
  */
 UserSchema.methods.view = function() {
   return {
     id: this.id,
-    name: this.name
+    name: this.name,
+    role: this.role
   };
 };
 
@@ -71,5 +88,10 @@ UserSchema.methods.authenticate = function(password) {
     return valid ? this : false;
   });
 };
+
+/**
+ * roles
+ */
+UserSchema.statics.roles = roles;
 
 export default mongoose.model('User', UserSchema);

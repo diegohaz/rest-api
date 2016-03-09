@@ -3,6 +3,7 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var sessionCtrlStub = {
+  index: 'sessionCtrl.index',
   create: 'sessionCtrl.create',
   destroy: 'sessionCtrl.destroy'
 };
@@ -13,6 +14,7 @@ var authStub = {
 };
 
 var routerStub = {
+  get: sinon.spy(),
   post: sinon.spy(),
   delete: sinon.spy()
 };
@@ -32,6 +34,16 @@ describe('Session API Router:', function() {
 
   it('should return an express router instance', function() {
     sessionIndex.should.equal(routerStub);
+  });
+
+  describe('GET /sessions', function() {
+
+    it('should route to session.controller.index with bearer authentication', function() {
+      routerStub.get
+        .withArgs('/', 'auth.bearer', 'sessionCtrl.index')
+        .should.have.been.calledOnce;
+    });
+
   });
 
   describe('POST /sessions', function() {

@@ -4,6 +4,7 @@ var app = require('../..');
 import request from 'supertest';
 
 import Session from './session.model';
+import User from '../user/user.model';
 
 describe('Session API:', function() {
 
@@ -13,6 +14,64 @@ describe('Session API:', function() {
 
   after(function() {
     return Session.remove();
+  });
+
+  describe('GET /sessions', function() {
+    var session, adminSession;
+
+    before(function() {
+      return User.create({
+        name: 'Fake Admin',
+        email: 'admin@example.com',
+        password: 'password',
+        role: 'admin'
+      }).then(admin => {
+        adminSession = new Session({user: admin});
+        return adminSession.save();
+      }).then(adminSession => {
+        return User.create({
+          name: 'Fake User',
+          email: 'user@example.com',
+          password: 'pass'
+        });
+      }).then(user => {
+        session = new Session({user: user});
+        return session.save();
+      });
+    });
+
+    after(function() {
+      return User.remove();
+    });
+
+    it('should retrieve list of sessions when authenticated as admin', function(done) {
+      request(app)
+        .get('/sessions')
+        .query({access_token: adminSession.token})
+        .expect(200)
+        .end((err, res) => {
+          if (err) done(err);
+          res.body.should.be.instanceOf(Array).and.have.lengthOf(2);
+          done();
+        });
+    });
+
+    it('should not retrieve list of sessions when authenticated as user', function(done) {
+      request(app)
+        .get('/sessions')
+        .query({access_token: session.token})
+        .expect(401)
+        .end(done);
+    });
+
+    it('should not retrieve list of sessions when authenticated', function(done) {
+      request(app)
+        .get('/sessions')
+        .query({access_token: session.token})
+        .expect(401)
+        .end(done);
+    });
+
   });
 
   describe('POST /sessions', function() {

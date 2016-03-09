@@ -9,9 +9,9 @@ var router = new Router();
 
 router.get('/', query(), controller.index);
 router.get('/:id', controller.show);
-router.post('/', auth.bearer(true), controller.create);
-router.put('/:id', auth.bearer(true), controller.update);
-router.patch('/:id', auth.bearer(true), controller.update);
-router.delete('/:id', auth.bearer(true), controller.destroy);
+router.post('/', auth.bearer({required: true}), controller.create);
+router.put('/:id', auth.bearer({required: true}), controller.update);
+router.patch('/:id', auth.bearer({required: true}), controller.update);
+router.delete('/:id', auth.bearer({required: true}), controller.destroy);
 
 export default router;
