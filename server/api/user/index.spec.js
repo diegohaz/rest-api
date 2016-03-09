@@ -8,9 +8,7 @@ var userCtrlStub = {
 };
 
 var authStub = {
-  bearer(required) {
-    return 'auth.bearer' + (required? '.' + required : '');
-  }
+  bearer() { return 'auth.bearer' }
 };
 
 var routerStub = {
@@ -38,7 +36,7 @@ describe('User API Router:', function() {
 
     it('should be authenticated and route to user.controller.me', function() {
       routerStub.get
-        .withArgs('/me', 'auth.bearer.true', 'userCtrl.me')
+        .withArgs('/me', 'auth.bearer', 'userCtrl.me')
         .should.have.been.calledOnce;
     });
 

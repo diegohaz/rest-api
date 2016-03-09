@@ -10,17 +10,11 @@ var thingCtrlStub = {
   destroy: 'thingCtrl.destroy'
 };
 
-var queryStub = function() {
-  return 'query';
-};
+var queryStub = function() { return 'query' };
 
 var authStub = {
-  basic() {
-    return 'auth.basic';
-  },
-  bearer(required) {
-    return 'auth.bearer' + (required? '.' + required : '');
-  }
+  basic() { return 'auth.basic' },
+  bearer() { return 'auth.bearer' }
 };
 
 var routerStub = {
@@ -73,7 +67,7 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.create', function() {
       routerStub.post
-        .withArgs('/', 'auth.bearer.true', 'thingCtrl.create')
+        .withArgs('/', 'auth.bearer', 'thingCtrl.create')
         .should.have.been.calledOnce;
     });
 
@@ -83,7 +77,7 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.update', function() {
       routerStub.put
-        .withArgs('/:id', 'auth.bearer.true', 'thingCtrl.update')
+        .withArgs('/:id', 'auth.bearer', 'thingCtrl.update')
         .should.have.been.calledOnce;
     });
 
@@ -93,7 +87,7 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.update', function() {
       routerStub.patch
-        .withArgs('/:id', 'auth.bearer.true', 'thingCtrl.update')
+        .withArgs('/:id', 'auth.bearer', 'thingCtrl.update')
         .should.have.been.calledOnce;
     });
 
@@ -103,7 +97,7 @@ describe('Thing API Router:', function() {
 
     it('should route to thing.controller.destroy', function() {
       routerStub.delete
-        .withArgs('/:id', 'auth.bearer.true', 'thingCtrl.destroy')
+        .withArgs('/:id', 'auth.bearer', 'thingCtrl.destroy')
         .should.have.been.calledOnce;
     });
 

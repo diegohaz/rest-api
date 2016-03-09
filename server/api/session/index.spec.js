@@ -8,12 +8,8 @@ var sessionCtrlStub = {
 };
 
 var authStub = {
-  basic() {
-    return 'auth.basic';
-  },
-  bearer(required) {
-    return 'auth.bearer' + (required? '.' + required : '');
-  }
+  basic() { return 'auth.basic' },
+  bearer() { return 'auth.bearer' }
 };
 
 var routerStub = {
@@ -52,7 +48,7 @@ describe('Session API Router:', function() {
 
     it('should route to session.controller.destroy with bearer authentication', function() {
       routerStub.delete
-        .withArgs('/', 'auth.bearer.true', 'sessionCtrl.destroy')
+        .withArgs('/', 'auth.bearer', 'sessionCtrl.destroy')
         .should.have.been.calledOnce;
     });
 
