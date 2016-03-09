@@ -16,6 +16,14 @@ export default function({
     var per_page = +query.per_page || perPage;
     var sort = querySorting && query.sort ? query.sort : null;
 
+    if (page > pageMax) {
+      return res.status(400).end('page out of range.');
+    }
+
+    if (per_page > perPageMax) {
+      return res.status(400).end('per_page out of range.');
+    }
+
     if (sort) {
       var fields = sort.split(',');
       sort = {};
@@ -44,4 +52,3 @@ export default function({
     next();
   }
 }
-
