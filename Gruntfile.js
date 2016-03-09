@@ -55,7 +55,7 @@ module.exports = function (grunt) {
       },
       express: {
         files: ['<%= yeoman.server %>/**/*.{js,json}'],
-        tasks: ['express:dev', 'wait']
+        tasks: ['express:dev']
       }
     },
 
