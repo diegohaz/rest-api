@@ -34,11 +34,9 @@ describe('User Model', function() {
     return user.save().then(() => genUser().save()).should.be.rejected;
   });
 
-  describe('#email', function() {
-    it('should fail when saving without an email', function() {
-      user.email = '';
-      return user.save().should.be.rejected;
-    });
+  it('should fail when saving without an email', function() {
+    user.email = '';
+    return user.save().should.be.rejected;
   });
 
   describe('#password', function() {
