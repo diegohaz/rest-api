@@ -2,6 +2,7 @@
 
 import app from '../..';
 import User from './user.model';
+import Session from '../session/session.model';
 
 var user;
 var genUser = function() {
@@ -39,7 +40,17 @@ describe('User Model', function() {
     return user.save().should.be.rejected;
   });
 
-  describe('#password', function() {
+  it('should remove user sessions after removing user', function() {
+    return user.save()
+      .then(user => Session.create({user: user}))
+      .then(session => user.remove())
+      .delay(20)
+      .then(() => {
+        return Session.find({user: user}).should.eventually.have.lengthOf(0);
+      });
+  });
+
+  describe('password', function() {
     beforeEach(function() {
       return user.save();
     });
