@@ -10,7 +10,7 @@ describe('Session Model', function() {
   var session;
 
   before(function() {
-    return User.remove();
+    return User.remove().then(() => Session.remove());
   });
 
   beforeEach(function() {
@@ -24,7 +24,7 @@ describe('Session Model', function() {
 
   afterEach(function() {
     tk.reset();
-    return User.remove();
+    return User.remove().then(() => Session.remove());
   });
 
   it('should begin with no sessions', function() {
