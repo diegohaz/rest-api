@@ -34,7 +34,7 @@ describe('User API:', function() {
 
   // Clear users after testing
   after(function() {
-    return User.remove().then(() => Session.remove());
+    return User.remove();
   });
 
   describe('GET /users', function() {
@@ -59,7 +59,7 @@ describe('User API:', function() {
         .end((err, res) => {
           if (err) done(err);
           res.body.should.be.instanceOf(Array).with.lengthOf(1);
-          res.body[0].should.have.property('id').eql(session.user.id);
+          res.body[0].should.have.property('id', session.user.id);
           done();
         });
     });
@@ -86,7 +86,7 @@ describe('User API:', function() {
         .expect(200)
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('id').eql(session.user.id);
+          res.body.should.have.property('id', session.user.id);
           done();
         });
     });
@@ -107,7 +107,7 @@ describe('User API:', function() {
         .expect(200)
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('id').eql(session.user.id);
+          res.body.should.have.property('id', session.user.id);
           done();
         });
     });
@@ -159,7 +159,7 @@ describe('User API:', function() {
         .expect(200)
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('email').eql('test2@example.com');
+          res.body.should.have.property('email', 'test2@example.com');
           done();
         });
     });
