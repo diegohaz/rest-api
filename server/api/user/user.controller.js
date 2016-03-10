@@ -72,6 +72,7 @@ export function update(req, res) {
     .findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(user => user ? _.merge(user, req.body).save() : null)
+    .then(user => user ? user.view() : null)
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

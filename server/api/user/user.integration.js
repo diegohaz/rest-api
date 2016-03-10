@@ -159,7 +159,7 @@ describe('User API:', function() {
         .expect(200)
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('email', 'test2@example.com');
+          res.body.should.have.property('name', 'Fake User 2');
           done();
         });
     });
