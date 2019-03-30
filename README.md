@@ -11,7 +11,7 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 ## Usage
 
-1. Run `git clone htps://github.com/diegohaz/rest-api && cd rest-api && npm install` and wait for npm to install dependencies.
+1. Run `git clone https://github.com/diegohaz/rest-api && cd rest-api && npm install` and wait for npm to install dependencies.
 
 2. Run `mongod` in a separate shell to keep an instance of the MongoDB Daemon running
 
